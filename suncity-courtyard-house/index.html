@@ -1,0 +1,862 @@
+<title>The Courtyard House, Suncity</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an architect's drawing set on one scroll — title block, family stack, tabbed 2D sheets with room schedule, live 3D model, design notes */
+:root{
+  --bg:#EEF0EA; --paper:#FAFBF7; --ink:#1C2520; --muted:#5B675F; --line:#CDD3C9;
+  --accent:#2E6A54; --accent-soft:#DCEAE2; --stone:#B48A55; --glass:#5E93B3;
+  --wall:#26302A;
+  --r-living:#E7EBDB; --r-bed:#E3ECE5; --r-bedbig:#CFE4D5; --r-kitchen:#F2E6D2; --r-dining:#ECE6D6;
+  --r-bath:#DEE8EF; --r-dress:#E9E4EE; --r-core:#DDDDD7; --r-circ:#F3F3EE; --r-service:#E8E3DB;
+  --r-court:#C9E0BC; --r-outdoor:#EBEFE2; --r-puja:#F4E1C6; --r-garden:#CFE4C0; --r-solar:#D2DAE5; --r-deck:#EEE3CF;
+  --s-road:#8E918D; --s-park:#B9D6A6; --s-paver:#E2DDD2;
+  --font-display:'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-body:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121715; --paper:#181E1B; --ink:#E4E9E3; --muted:#98A49C; --line:#2C3631;
+    --accent:#7BC2A2; --accent-soft:#1F3229; --stone:#D0A56B; --glass:#7DB4D4; --wall:#D6DCD4;
+    --r-living:#242B22; --r-bed:#1F2A23; --r-bedbig:#24392C; --r-kitchen:#2F2A20; --r-dining:#2A2820;
+    --r-bath:#1E2830; --r-dress:#28242E; --r-core:#2A2B28; --r-circ:#1D221F; --r-service:#2A2723;
+    --r-court:#2B4227; --r-outdoor:#20261D; --r-puja:#33291C; --r-garden:#2A3F22; --r-solar:#222A36; --r-deck:#2E281E;
+    --s-road:#3A3D3B; --s-park:#2D4426; --s-paver:#2B2A26;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+    --bg:#121715; --paper:#181E1B; --ink:#E4E9E3; --muted:#98A49C; --line:#2C3631;
+    --accent:#7BC2A2; --accent-soft:#1F3229; --stone:#D0A56B; --glass:#7DB4D4; --wall:#D6DCD4;
+    --r-living:#242B22; --r-bed:#1F2A23; --r-bedbig:#24392C; --r-kitchen:#2F2A20; --r-dining:#2A2820;
+    --r-bath:#1E2830; --r-dress:#28242E; --r-core:#2A2B28; --r-circ:#1D221F; --r-service:#2A2723;
+    --r-court:#2B4227; --r-outdoor:#20261D; --r-puja:#33291C; --r-garden:#2A3F22; --r-solar:#222A36; --r-deck:#2E281E;
+    --s-road:#3A3D3B; --s-park:#2D4426; --s-paver:#2B2A26;
+    color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:28px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:56px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(34px,6vw,64px);font-weight:760;font-stretch:88%;line-height:.98}
+h2{font-size:clamp(24px,3.2vw,34px);font-weight:700;font-stretch:92%}
+h3{font-size:17px;font-weight:650}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+.mono{font-family:var(--font-mono)}
+
+/* title block */
+.title{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:end;border-bottom:2px solid var(--ink);padding-bottom:24px}
+.title .lede{font-size:17px;margin-top:16px}
+.tblock{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);font-size:13px}
+.tblock div{padding:8px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.tblock div:nth-child(2n){border-right:0}
+.tblock b{display:block;font-family:var(--font-mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tblock span{font-variant-numeric:tabular-nums;font-weight:600}
+
+/* stack */
+.stack-sec{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center}
+.stack{display:grid;gap:6px}
+.lvl{display:grid;grid-template-columns:86px 1fr;align-items:stretch;gap:10px}
+.lvl .tag{font-family:var(--font-mono);font-size:12px;color:var(--muted);display:flex;align-items:center}
+.lvl .bar{border:1px solid var(--line);background:var(--paper);padding:12px 14px;display:grid;gap:2px}
+.lvl .bar strong{font-family:var(--font-display);font-size:18px;font-weight:700}
+.lvl.roof .bar{background:var(--r-garden)}
+.lvl.a .bar{border-left:6px solid var(--accent)}
+.lvl.b .bar{border-left:6px solid var(--stone)}
+.lvl.g .bar{border-left:6px solid var(--ink)}
+.points{display:grid;gap:14px}
+.points div{display:grid;grid-template-columns:28px 1fr;gap:10px}
+.points i{font-style:normal;font-family:var(--font-mono);color:var(--accent);font-weight:500}
+
+/* tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tab{font:500 13px var(--font-body);border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:8px 12px;border-radius:999px;cursor:pointer}
+.tab:hover{border-color:var(--accent)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tab:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sheet{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;margin-top:16px;align-items:start}
+.drawing{background:var(--paper);border:1px solid var(--line);padding:10px;overflow-x:auto}
+.drawing svg{display:block;width:100%;height:auto;min-width:340px;max-height:86vh}
+.side{display:grid;gap:14px;min-width:0}
+.side .note{font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+th{font-family:var(--font-mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.n{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.big{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:3px;margin-left:6px;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:14px;height:10px;border:1px solid var(--wall);display:inline-block}
+
+/* plan svg classes */
+.r{stroke:var(--wall);stroke-width:.3}
+.r-living{fill:var(--r-living)}.r-bed{fill:var(--r-bed)}.r-bedbig{fill:var(--r-bedbig)}.r-kitchen{fill:var(--r-kitchen)}
+.r-dining{fill:var(--r-dining)}.r-bath{fill:var(--r-bath)}.r-dress{fill:var(--r-dress)}.r-core{fill:var(--r-core)}
+.r-circ{fill:var(--r-circ)}.r-service{fill:var(--r-service)}.r-court{fill:var(--r-court)}.r-outdoor{fill:var(--r-outdoor)}
+.r-puja{fill:var(--r-puja)}.r-garden{fill:var(--r-garden)}.r-solar{fill:var(--r-solar)}.r-deck{fill:var(--r-deck)}
+.r-void{fill:var(--paper);stroke-dasharray:.8 .5}
+.outline{fill:none;stroke:var(--wall);stroke-width:.7}
+.plot{fill:none;stroke:var(--muted);stroke-width:.2;stroke-dasharray:1.2 .6}
+.gap{fill:var(--paper)}
+.leaf{fill:none;stroke:var(--wall);stroke-width:.12}
+.win{stroke:var(--glass);stroke-width:.14}
+.t-name{font:600 1.15px var(--font-body);fill:var(--ink)}
+.t-sub{font:italic 400 .82px var(--font-body);fill:var(--muted)}
+.t-dim{font:400 .9px var(--font-mono);fill:var(--muted)}
+.t-big{font:600 .72px var(--font-mono);fill:var(--accent);letter-spacing:.06px}
+.t-note{font:500 1.05px var(--font-mono);fill:var(--muted);letter-spacing:.08px}
+.t-head{font:700 1.3px var(--font-display);fill:var(--ink);letter-spacing:.1px}
+.dim{stroke:var(--muted);stroke-width:.1;fill:none}
+.tree{fill:var(--accent);opacity:.35}
+.tree2{fill:none;stroke:var(--accent);stroke-width:.15}
+.s-road{fill:var(--s-road)}.s-park{fill:var(--s-park)}.s-paver{fill:var(--s-paver)}
+.s-bldg{fill:var(--paper);stroke:var(--wall);stroke-width:.6}
+.s-wall{fill:none;stroke:var(--wall);stroke-width:.5}
+.car{fill:var(--line);stroke:var(--muted);stroke-width:.12}
+.road-line{stroke:var(--paper);stroke-width:.3;stroke-dasharray:3 2}
+.sun{stroke:var(--stone);stroke-width:.25;fill:none;stroke-dasharray:1 .5}
+/* elevation */
+.e-ground{fill:var(--s-paver)}
+.e-plaster{fill:var(--paper);stroke:var(--wall);stroke-width:.12}
+.e-stone{fill:var(--stone);stroke:var(--wall);stroke-width:.12}
+.e-glass{fill:var(--glass);opacity:.55;stroke:var(--wall);stroke-width:.1}
+.e-wood{fill:#8A5A35;stroke:var(--wall);stroke-width:.06}
+.e-slab{fill:var(--line);stroke:var(--wall);stroke-width:.12}
+.e-rail{fill:var(--glass);opacity:.18;stroke:var(--wall);stroke-width:.08}
+.e-green{fill:#5E8E45}
+.e-cut{fill:var(--wall)}
+.e-wall{fill:var(--r-service);stroke:var(--wall);stroke-width:.12}
+
+/* 3D */
+.viewer{position:relative;border:1px solid var(--line);background:var(--paper);height:min(640px,72vh);min-height:380px;margin-top:16px;overflow:hidden}
+.viewer canvas{display:block;width:100%;height:100%;touch-action:none}
+.hud{position:absolute;left:12px;bottom:12px;font-size:12px;color:var(--muted);background:var(--paper);padding:6px 10px;border:1px solid var(--line);max-width:calc(100% - 24px)}
+.btn{font:500 13px var(--font-body);border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:8px 12px;border-radius:6px;cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.loading{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-family:var(--font-mono);font-size:13px}
+
+/* notes */
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 32px}
+.notes section{display:grid;gap:8px;align-content:start;border-top:1px solid var(--ink);padding-top:12px}
+.notes ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+.assume{background:var(--paper);border:1px solid var(--line);padding:18px 20px;display:grid;gap:10px;font-size:14px}
+.assume ul{margin:0;padding-left:18px;display:grid;gap:4px}
+
+@media (max-width:900px){
+  .title,.stack-sec,.sheet{grid-template-columns:1fr}
+  .notes{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .notes{grid-template-columns:1fr}
+  .tblock{grid-template-columns:1fr}
+  .tblock div{border-right:0}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="title">
+  <div>
+    <div class="eyebrow">Concept design · Plot in Suncity, Sikar Road, Jaipur</div>
+    <h1>The Courtyard House</h1>
+    <p class="lede">Two complete homes for two brothers, stacked one above the other, with the parents and the shared family spaces on the ground floor. One stone frame, one gate and one garden courtyard make it read as a single house from the street.</p>
+  </div>
+  <div class="tblock">
+    <div><b>Plot</b><span>50' × 90' · 495 sq yd</span></div>
+    <div><b>Facing</b><span>West, onto society garden</span></div>
+    <div><b>Floors</b><span>G + 2 + roof garden</span></div>
+    <div><b>Ceiling</b><span>12' clear (13' floor to floor)</span></div>
+    <div><b>Built-up</b><span>≈ 7,350 sq ft</span></div>
+    <div><b>Bedrooms</b><span>4 + 4 + parents + guest</span></div>
+  </div>
+</header>
+
+<section class="stack-sec">
+  <div class="stack" aria-label="Who lives on which floor">
+    <div class="lvl roof"><div class="tag">Roof</div><div class="bar"><strong>Shared roof garden</strong><span class="muted">Pergola deck facing the garden, kitchen garden, solar</span></div></div>
+    <div class="lvl b"><div class="tag">2nd floor</div><div class="bar"><strong>House B · younger brother</strong><span class="muted">4 bedrooms, 2 of them very large · own kitchen, living, dining</span></div></div>
+    <div class="lvl a"><div class="tag">1st floor</div><div class="bar"><strong>House A · elder brother</strong><span class="muted">Same plan as House B, its own front door</span></div></div>
+    <div class="lvl g"><div class="tag">Ground</div><div class="bar"><strong>Parents + common family floor</strong><span class="muted">Parents' suite with garden view, family lounge, dining, kitchen, guest room, servant room</span></div></div>
+  </div>
+  <div class="points">
+    <h2>How it works</h2>
+    <div><i>A</i><p><b>Two real homes.</b> Each upper floor is a full house of about 2,400 sq ft with its own lockable main door, kitchen, living and four bedrooms. A shared stair and lift reach every floor.</p></div>
+    <div><i>B</i><p><b>Equal for both brothers.</b> Stacking gives both houses the same plan, the same view over the Suncity garden and the same area. A side-by-side split would leave each house only 20 ft wide.</p></div>
+    <div><i>C</i><p><b>Parents in the middle of family life.</b> They stay on the ground floor next to the courtyard and family dining, with no stairs to climb. Both sons are one lift ride away.</p></div>
+    <div><i>D</i><p><b>A courtyard at the heart.</b> A 16' × 16' garden open to the sky sits in the centre of the plot (the Brahmasthan). It brings light and air into all three floors.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">2D drawings · inside and outside</div>
+  <h2>Plans, elevation and section</h2>
+  <div class="tabs" role="tablist" id="planTabs"></div>
+  <div class="sheet">
+    <div class="drawing" id="drawing" role="tabpanel"></div>
+    <aside class="side" id="side"></aside>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">3D model · drag to orbit, scroll or pinch to zoom</div>
+  <h2>Walk around the house</h2>
+  <div class="tabs" id="viewBtns"></div>
+  <div class="viewer" id="viewer"><div class="loading" id="loading">Loading 3D model…</div><div class="hud" id="hud">Street view from the Suncity garden, late afternoon sun from the west.</div></div>
+</section>
+
+<section style="display:grid;gap:24px">
+  <div><div class="eyebrow">Design intent</div><h2>Light, nature and restraint</h2></div>
+  <div class="notes">
+    <section><h3>Light everywhere</h3><ul>
+      <li>The open courtyard lights the dining, gallery and bedrooms of every floor from the middle of the plan.</li>
+      <li>Full-height glass faces the society garden on the west.</li>
+      <li>The north wall gets long windows for soft, glare-free daylight. North light is the best working light.</li>
+      <li>A skylight over the stair pulls light down three floors.</li>
+    </ul></section>
+    <section><h3>Taming the west sun</h3><ul>
+      <li>4 ft deep balconies on both upper floors shade the glass from the high afternoon sun.</li>
+      <li>Vertical teak louvres in front of the bedrooms cut the low evening sun and keep privacy.</li>
+      <li>Planter hedges on every balcony cool the air before it enters.</li>
+      <li>Hot air rises out through the courtyard (stack ventilation), so the house needs less AC.</li>
+    </ul></section>
+    <section><h3>Nature inspired</h3><ul>
+      <li>A champa (frangipani) tree in the courtyard, visible from all three homes.</li>
+      <li>Kota stone floors and lime plaster walls, with a Jodhpur sandstone frame. All are local Rajasthan materials.</li>
+      <li>Roof lawn, herb beds and a kitchen garden, plus a rear garden with a swing for the parents.</li>
+      <li>Rainwater harvesting pit (required in Jaipur for plots over 300 m²) and a solar array on the roof.</li>
+    </ul></section>
+    <section><h3>Minimal by design</h3><ul>
+      <li>Few materials: white plaster, sandstone, teak and glass.</li>
+      <li>Flush storage walls. No false ceilings, so the full 12' height stays.</li>
+      <li>Clean rectangular rooms that are easy to furnish. No decorative mouldings or arches.</li>
+    </ul></section>
+    <section><h3>One house from outside</h3><ul>
+      <li>A single sandstone frame wraps all three floors.</li>
+      <li>One gate, one portico, one continuous balcony line and one pergola on the roof.</li>
+      <li>Utility areas face the rear, so the street side stays calm.</li>
+    </ul></section>
+    <section><h3>Vastu notes</h3><ul>
+      <li>West-facing main entrance. The courtyard keeps the centre (Brahmasthan) open.</li>
+      <li>Master bedroom and parents' bedroom sit in the south-west. Kitchens sit in the south-east.</li>
+      <li>Puja room is in the north-east zone of the ground floor.</li>
+      <li>The stair core is on the north side. If your vastu consultant prefers south, the whole plan can be mirrored.</li>
+    </ul></section>
+  </div>
+  <div class="assume">
+    <h3>Assumptions to confirm with your architect</h3>
+    <ul>
+      <li>Setbacks are taken as front 15', rear 10' and 5' on each side. Ground coverage is about 58%. Check the JDA bylaws and Suncity society rules for your plot; if they ask for wider setbacks, the plan narrows but the layout stays the same.</li>
+      <li>Height is about 44'6" to the parapet (13.6 m), below the 15 m limit that triggers high-rise fire rules.</li>
+      <li>A 30' road between the plot and the garden is assumed.</li>
+      <li>50' × 90' works out to 500 sq yd. The 495 sq yd on paper suggests a small corner cut, which does not affect this layout.</li>
+      <li>This is a concept for discussion. Structure, services and legal drawings must be prepared by a licensed architect and structural engineer.</li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+/* ============ DATA (feet). x = across the plot from the NORTH boundary (0..50); d = depth from the FRONT/WEST boundary (0..90) ============ */
+const R = (n,x,d,w,h,t,o={}) => Object.assign({n,x,d,w,h,t},o);
+
+const GF = {
+  title:'Ground floor', sub:'Parents + common family floor', level:0,
+  rooms:[
+    R('Entrance Portico',5,10,12,5,'outdoor'),
+    R('Family Lounge',5,15,24,18,'living',{sub:'with entrance foyer', dims:"24' × 18'"}),
+    R("Parents' Bedroom",29,15,16,18,'bedbig',{big:1, sub:'garden view, south-west'}),
+    R('Stair',5,33,7,16,'core',{sub:'skylight above'}),
+    R('Lobby',12,33,5,11,'core',{small:1}),
+    R('Lift',12,44,5,5,'core',{small:1}),
+    R('Courtyard Garden',17,33,16,16,'court',{sub:'open to sky · champa tree'}),
+    R('Dressing',33,33,12,8,'dress'),
+    R("Parents' Bath",33,41,12,8,'bath'),
+    R('Puja',5,49,12,7,'puja',{sub:'north-east zone'}),
+    R('Common Toilet',5,56,12,7,'bath'),
+    R('Family Dining',17,49,16,14,'dining',{sub:'opens to courtyard'}),
+    R('Guest Room',33,49,12,14,'bed',{lx:37.5,ld:53,dims:"12' × 14'"}),
+    R('Bath',39,56,6,7,'bath',{small:1}),
+    R('Servant Room',5,63,10,10,'service',{sub:'own side entry'}),
+    R('Toilet',15,63,8,5,'bath',{small:1}),
+    R('Store',15,68,8,5,'service',{small:1}),
+    R('Laundry + Utility',5,73,18,7,'service'),
+    R('Back Passage',23,63,6,17,'circ',{small:1}),
+    R('Common Kitchen',29,63,16,17,'kitchen',{sub:'south-east, with pantry'}),
+  ],
+  doors:[
+    {o:'h',x:7.5,d:15,w:5,dbl:1},{o:'v',x:29,d:27,w:3},{o:'h',x:13,d:33,w:3},{o:'h',x:20,d:33,w:7,slide:1},
+    {o:'h',x:38,d:33,w:3},{o:'h',x:38,d:41,w:3},{o:'h',x:20,d:49,w:9,slide:1},
+    {o:'v',x:17,d:51,w:3},{o:'v',x:17,d:58.5,w:3},{o:'v',x:33,d:50,w:3},{o:'h',x:40,d:56,w:2.5},
+    {o:'h',x:24,d:63,w:4,open:1},{o:'h',x:29.5,d:63,w:3.5,open:1},{o:'v',x:29,d:72,w:3},
+    {o:'v',x:23,d:64,w:2.5},{o:'v',x:23,d:69,w:2.5},{o:'v',x:23,d:75,w:3,open:1},{o:'h',x:7,d:73,w:3},
+    {o:'h',x:14,d:80,w:4},{o:'h',x:24,d:80,w:4},{o:'h',x:40,d:80,w:3},{o:'v',x:5,d:66,w:3},{o:'v',x:12,d:36,w:3,open:1}
+  ],
+  windows:[
+    {o:'h',x:18,d:15,w:10},{o:'h',x:30,d:15,w:14},{o:'v',x:5,d:19,w:10},{o:'v',x:45,d:19,w:10},
+    {o:'v',x:5,d:35,w:12},{o:'v',x:45,d:43,w:4},{o:'v',x:5,d:50,w:5},{o:'v',x:5,d:58,w:3},
+    {o:'v',x:45,d:51,w:4},{o:'v',x:45,d:58,w:3},{o:'v',x:45,d:66,w:10},{o:'h',x:31,d:80,w:8},{o:'h',x:6,d:80,w:6},
+    {o:'v',x:33,d:35,w:12,g:1}
+  ],
+  note:"The common floor. Parents live here with the family lounge, dining, puja and courtyard. The kitchen and guest room serve everyone. The servant room has its own entry from the north side passage and is close to the parents' suite."
+};
+
+const UPPER = (house, level) => ({
+  title: level===1 ? 'First floor' : 'Second floor',
+  sub: house, level,
+  rooms:[
+    R('Front Balcony',5,11,40,4,'outdoor',{sub:'planters · garden view'}),
+    R('Living',5,15,24,18,'living',{sub:'full-height glass to the garden'}),
+    R('Master Bedroom',29,15,16,18,'bedbig',{big:1, sub:'south-west · teak louvres'}),
+    R('Stair',5,33,7,16,'core'),
+    R('Lobby',12,33,5,11,'core',{small:1}),
+    R('Lift',12,44,5,5,'core',{small:1}),
+    R('Entry Gallery',17,33,4,16,'circ',{small:1}),
+    R('Courtyard below',21,33,12,16,'void',{sub:'open to sky'}),
+    R('Walk-in Wardrobe',33,33,12,8,'dress'),
+    R('Master Bath',33,41,12,8,'bath'),
+    R('Bedroom 3',5,49,12,14,'bed',{lx:11,ld:52.5,dims:"12' × 14'"}),
+    R('Bath',5,56,6,7,'bath',{small:1}),
+    R('Dining',17,49,16,14,'dining',{sub:'looks into courtyard'}),
+    R('Bedroom 4',33,49,12,14,'bed',{lx:39,ld:52.5,dims:"12' × 14'"}),
+    R('Bath',39,56,6,7,'bath',{small:1}),
+    R('Bedroom 2',5,63,18,17,'bedbig',{big:1,lx:15,ld:74,dims:"18' × 17'", sub:'rear balcony'}),
+    R('Bath',5,63,6,8,'bath',{small:1}),
+    R('Passage',23,63,6,7,'circ',{small:1}),
+    R('Powder + Wash',23,70,6,10,'bath',{small:1}),
+    R('Kitchen',29,63,16,17,'kitchen',{sub:'south-east · utility balcony'}),
+    R('Balcony',5,80,18,3,'outdoor',{small:1}),
+    R('Utility Balcony',29,80,16,3,'outdoor',{small:1}),
+  ],
+  doors:[
+    {o:'v',x:17,d:35,w:3.5,dbl:1},{o:'h',x:17.5,d:33,w:3,open:1},{o:'v',x:29,d:27,w:3},
+    {o:'h',x:38,d:33,w:3},{o:'h',x:38,d:41,w:3},{o:'h',x:17.5,d:49,w:3,open:1},
+    {o:'v',x:17,d:50,w:3},{o:'h',x:7,d:56,w:2.5},{o:'v',x:33,d:50,w:3},{o:'h',x:40.5,d:56,w:2.5},
+    {o:'h',x:24,d:63,w:4,open:1},{o:'v',x:23,d:64.5,w:3},{o:'v',x:11,d:67,w:2.5},{o:'h',x:24.5,d:70,w:2.5},
+    {o:'h',x:29.5,d:63,w:3.5,open:1},{o:'h',x:12,d:80,w:7,slide:1},{o:'h',x:38,d:80,w:3},{o:'v',x:12,d:36,w:3,open:1},
+    {o:'h',x:7,d:15,w:20,slide:1},{o:'h',x:32,d:15,w:10,slide:1}
+  ],
+  windows:[
+    {o:'v',x:5,d:19,w:10},{o:'v',x:45,d:19,w:10},{o:'v',x:5,d:35,w:12},
+    {o:'v',x:45,d:43,w:4},{o:'v',x:5,d:50,w:5},{o:'v',x:45,d:50,w:5},{o:'v',x:45,d:58,w:3},{o:'v',x:5,d:58,w:3},
+    {o:'v',x:5,d:73,w:6},{o:'v',x:45,d:66,w:10},{o:'v',x:21,d:33,w:16,g:1},{o:'h',x:21,d:49,w:12,g:1},{o:'v',x:33,d:35,w:12,g:1},
+  ],
+  note: level===1
+    ? "House A, a full home of about 2,400 sq ft. Main door opens from the shared lobby into a glass gallery along the courtyard. 2 very large bedrooms (Master 16'×18', Bedroom 2 18'×17') and 2 regular bedrooms, all with attached baths."
+    : "House B has exactly the same plan as House A, one floor up, with its own front door and kitchen. The second floor gets the best view over the Suncity garden and direct stair access to the roof garden."
+});
+const FF = UPPER('House A · elder brother',1);
+const SF = UPPER('House B · younger brother',2);
+
+const TR = {
+  title:'Roof', sub:'Shared roof garden', level:3,
+  rooms:[
+    R('Pergola Deck',5,15,40,18,'deck',{sub:'sunset view over the Suncity garden'}),
+    R('Stair room',5,33,7,16,'core',{small:1}),
+    R('Lobby',12,33,5,11,'core',{small:1}),
+    R('Lift m/c',12,44,5,5,'core',{small:1}),
+    R('Walkway',17,33,4,16,'deck',{small:1}),
+    R('Courtyard opening',21,33,12,16,'void',{sub:'railing + shade sail'}),
+    R('Water tanks',33,33,12,8,'service'),
+    R('Herb beds',33,41,12,8,'garden'),
+    R('Roof Lawn + Kitchen Garden',5,49,40,14,'garden',{sub:'seating, vegetables, tulsi'}),
+    R('Solar Panels · about 10 kW',5,63,40,17,'solar',{sub:'shared by all three homes'}),
+  ],
+  doors:[{o:'v',x:17,d:36,w:3.5}],
+  windows:[],
+  note:"A shared roof for the whole family: evening tea under the pergola facing the garden, a kitchen garden, and a solar array sized for about 10 kW, enough to cover most of the daytime load of all three homes."
+};
+
+/* ============ 2D PLANS ============ */
+const D = 92;               // svg y = D - d (front/west at the bottom)
+const Y = d => D - d;
+const f = n => +n.toFixed(2);
+const ft = v => (Number.isInteger(v) ? v : v.toFixed(1)) + "'";
+
+function northArrow(x,y){
+  return `<g transform="translate(${x},${y})"><circle r="2.2" fill="none" class="dim"/>
+  <path d="M-1.8 0 L1.2 -0.9 L0.6 0 L1.2 0.9 Z" fill="var(--ink)"/><text x="-3.2" y=".45" class="t-head" text-anchor="end">N</text></g>`;
+}
+function dimH(x1,x2,y,label){
+  return `<g><line class="dim" x1="${x1}" y1="${y}" x2="${x2}" y2="${y}"/><line class="dim" x1="${x1}" y1="${y-.6}" x2="${x1}" y2="${y+.6}"/><line class="dim" x1="${x2}" y1="${y-.6}" x2="${x2}" y2="${y+.6}"/>
+  <text class="t-dim" x="${(x1+x2)/2}" y="${y-.45}" text-anchor="middle">${label}</text></g>`;
+}
+function dimV(x,y1,y2,label){
+  return `<g><line class="dim" x1="${x}" y1="${y1}" x2="${x}" y2="${y2}"/><line class="dim" x1="${x-.6}" y1="${y1}" x2="${x+.6}" y2="${y1}"/><line class="dim" x1="${x-.6}" y1="${y2}" x2="${x+.6}" y2="${y2}"/>
+  <text class="t-dim" transform="translate(${x+1.2},${(y1+y2)/2}) rotate(90)" text-anchor="middle">${label}</text></g>`;
+}
+function treeSym(cx,cy,r){
+  let s=`<circle class="tree" cx="${cx}" cy="${cy}" r="${r}"/>`;
+  for(let i=0;i<8;i++){const a=i*Math.PI/4;s+=`<line class="tree2" x1="${cx}" y1="${cy}" x2="${f(cx+Math.cos(a)*r*.8)}" y2="${f(cy+Math.sin(a)*r*.8)}"/>`}
+  return s+`<circle class="tree2" cx="${cx}" cy="${cy}" r="${r}"/>`;
+}
+
+function planSVG(F){
+  let s = `<svg viewBox="-7 0 64 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${F.title} plan">`;
+  s += `<rect class="plot" x="0" y="${Y(90)}" width="50" height="90"/>`;
+  for(const r of F.rooms){
+    s += `<rect class="r r-${r.t}" x="${r.x}" y="${Y(r.d+r.h)}" width="${r.w}" height="${r.h}"/>`;
+    if(r.t==='court') s += treeSym(r.x+r.w/2, Y(r.d+r.h/2)+1.5, 4);
+    if(r.t==='void'){ s+=`<line class="dim" x1="${r.x}" y1="${Y(r.d)}" x2="${r.x+r.w}" y2="${Y(r.d+r.h)}"/><line class="dim" x1="${r.x}" y1="${Y(r.d+r.h)}" x2="${r.x+r.w}" y2="${Y(r.d)}"/>`; }
+    if(r.t==='core' && r.n.startsWith('Stair')){ for(let i=1;i<14;i++){ s+=`<line class="dim" x1="${r.x}" y1="${Y(r.d+i)}" x2="${r.x+r.w/2}" y2="${Y(r.d+i)}"/>`; } s+=`<line class="dim" x1="${r.x+r.w/2}" y1="${Y(r.d)}" x2="${r.x+r.w/2}" y2="${Y(r.d+14)}"/>`; }
+    if(r.n==='Lift'||r.n==='Lift m/c'){ s+=`<line class="dim" x1="${r.x}" y1="${Y(r.d)}" x2="${r.x+r.w}" y2="${Y(r.d+r.h)}"/><line class="dim" x1="${r.x}" y1="${Y(r.d+r.h)}" x2="${r.x+r.w}" y2="${Y(r.d)}"/>`; }
+    if(r.t==='solar'){ for(let x=r.x+1.5;x<r.x+r.w-1;x+=4.2){ s+=`<rect x="${f(x)}" y="${Y(r.d+r.h-1.5)}" width="3.2" height="${r.h-3}" fill="none" class="dim"/>`; } }
+  }
+  // building outline
+  s += `<rect class="outline" x="5" y="${Y(80)}" width="40" height="65"/>`;
+  for(const w of F.windows){
+    if(w.o==='h'){ const y=Y(w.d); s+=`<rect class="gap" x="${w.x}" y="${y-.35}" width="${w.w}" height=".7"/><line class="win" x1="${w.x}" y1="${y-.18}" x2="${w.x+w.w}" y2="${y-.18}"/><line class="win" x1="${w.x}" y1="${y+.18}" x2="${w.x+w.w}" y2="${y+.18}"/>`; }
+    else { const y1=Y(w.d+w.w), y2=Y(w.d); s+=`<rect class="gap" x="${w.x-.35}" y="${y1}" width=".7" height="${w.w}"/><line class="win" x1="${w.x-.18}" y1="${y1}" x2="${w.x-.18}" y2="${y2}"/><line class="win" x1="${w.x+.18}" y1="${y1}" x2="${w.x+.18}" y2="${y2}"/>`; }
+  }
+  for(const dr of F.doors){
+    if(dr.o==='h'){
+      const y=Y(dr.d);
+      s+=`<rect class="gap" x="${dr.x}" y="${y-.4}" width="${dr.w}" height=".8"/>`;
+      if(dr.slide){ s+=`<line class="win" x1="${dr.x}" y1="${y-.15}" x2="${dr.x+dr.w*.55}" y2="${y-.15}"/><line class="win" x1="${dr.x+dr.w*.45}" y1="${y+.15}" x2="${dr.x+dr.w}" y2="${y+.15}"/>`; }
+      else if(!dr.open){
+        if(dr.dbl){ const h=dr.w/2; s+=`<path class="leaf" d="M${dr.x} ${y} v${-h} A${h} ${h} 0 0 1 ${dr.x+h} ${y} M${dr.x+dr.w} ${y} v${-h} A${h} ${h} 0 0 0 ${dr.x+h} ${y}"/>`; }
+        else s+=`<path class="leaf" d="M${dr.x} ${y} v${-dr.w} M${dr.x} ${y-dr.w} A${dr.w} ${dr.w} 0 0 1 ${dr.x+dr.w} ${y}"/>`;
+      }
+    } else {
+      const y1=Y(dr.d+dr.w), y2=Y(dr.d);
+      s+=`<rect class="gap" x="${dr.x-.4}" y="${y1}" width=".8" height="${dr.w}"/>`;
+      if(!dr.open && !dr.slide){
+        if(dr.dbl){ const h=dr.w/2; s+=`<path class="leaf" d="M${dr.x} ${y2} h${h} M${dr.x+h} ${y2} A${h} ${h} 0 0 0 ${dr.x} ${y2-h} M${dr.x} ${y1} h${h} M${dr.x+h} ${y1} A${h} ${h} 0 0 1 ${dr.x} ${y1+h}"/>`; }
+        else s+=`<path class="leaf" d="M${dr.x} ${y2} h${dr.w} M${dr.x+dr.w} ${y2} A${dr.w} ${dr.w} 0 0 0 ${dr.x} ${y1}"/>`;
+      }
+    }
+  }
+  // labels
+  for(const r of F.rooms){
+    const cx = r.lx ?? r.x + r.w/2, cd = r.ld ?? r.d + r.h/2;
+    let cy = Y(cd);
+    const small = r.small || r.w < 7 || r.h < 5;
+    const dims = r.dims || `${ft(r.w)} × ${ft(r.h)}`;
+    if(r.t==='court'){ cy = Y(r.d+r.h) + 2.2; }
+    if(small){
+      const vertical = r.h > r.w*1.6 && r.w < 6;
+      const tx = vertical ? `transform="translate(${cx},${cy}) rotate(-90)" x="0" y="0"` : `x="${cx}" y="${cy-.2}"`;
+      s+=`<text class="t-name" style="font-size:.78px" ${tx} text-anchor="middle">${r.n}</text>`;
+      if(!vertical && r.h>=5) s+=`<text class="t-dim" style="font-size:.7px" x="${cx}" y="${cy+.8}" text-anchor="middle">${dims}</text>`;
+      continue;
+    }
+    let lines = [[ 't-name', r.n ]];
+    if(r.t!=='void') lines.push(['t-dim', dims]);
+    if(r.sub) lines.push(['t-sub', r.sub]);
+    if(r.big) lines.push(['t-big','VERY LARGE BEDROOM']);
+    const lh = 1.45, start = cy - (lines.length-1)*lh/2 + .35;
+    lines.forEach((l,i)=>{ s+=`<text class="${l[0]}" x="${cx}" y="${f(start+i*lh)}" text-anchor="middle">${l[1]}</text>`; });
+  }
+  // dimensions & annotations
+  s += dimH(5,45,Y(86),"40'-0\" building");
+  s += dimV(47.5,Y(80),Y(15),"65'-0\" building");
+  s += dimV(-2.5,Y(90),Y(0),"90'-0\" plot");
+  s += dimH(0,50,Y(-2),"50'-0\" plot");
+  s += northArrow(-1.5,Y(88.5)+1.6);
+  s += `<text class="t-note" x="25" y="${Y(-5.3)}" text-anchor="middle">WEST · FRONT · ROAD AND SUNCITY GARDEN ↓</text>`;
+  s += `<text class="t-note" x="25" y="${Y(89)}" text-anchor="middle">EAST · REAR GARDEN</text>`;
+  s += `</svg>`;
+  return s;
+}
+
+/* ============ SITE PLAN ============ */
+function siteSVG(){
+  const Ys = d => 92 - d;
+  let s = `<svg viewBox="-7 0 64 138" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Site plan">`;
+  s+=`<rect class="s-park" x="-7" y="${Ys(-30)}" width="64" height="16"/>`;
+  [[-3,-37],[6,-39],[15,-35],[27,-38],[37,-36],[47,-39],[53,-35]].forEach(([x,d])=> s+=treeSym(x,Ys(d),2.6));
+  s+=`<text class="t-head" x="25" y="${Ys(-42.4)}" text-anchor="middle">SUNCITY CENTRAL GARDEN</text>`;
+  s+=`<rect class="s-road" x="-7" y="${Ys(0)}" width="64" height="30"/><line class="road-line" x1="-7" y1="${Ys(-15)}" x2="57" y2="${Ys(-15)}"/>`;
+  s+=`<text class="t-note" x="25" y="${Ys(-8)}" text-anchor="middle" style="fill:var(--paper)">30' ROAD (ASSUMED)</text>`;
+  s+=`<rect class="s-paver" x="0" y="${Ys(90)}" width="50" height="90"/>`;
+  s+=`<rect class="r r-garden" x="0" y="${Ys(10)}" width="17" height="10"/>` + treeSym(4,Ys(5),3);
+  s+=`<text class="t-sub" x="11" y="${Ys(2)}" text-anchor="middle">front lawn</text>`;
+  s+=`<rect class="r r-garden" x="0" y="${Ys(90)}" width="50" height="10"/>`;
+  s+=`<text class="t-name" x="25" y="${Ys(85.6)}" text-anchor="middle">Common rear garden</text><text class="t-sub" x="25" y="${Ys(87.4)}" text-anchor="middle">fruit trees · swing · parents' sit-out · rainwater pit</text>`;
+  [[3,86],[47,86]].forEach(([x,d])=> s+=treeSym(x,Ys(d),2.4));
+  // parking
+  for(let i=0;i<4;i++){ const x=18+i*8; s+=`<rect class="dim" x="${x}" y="${Ys(15)}" width="8" height="15"/><rect class="car" rx=".8" x="${x+1.2}" y="${Ys(14)}" width="5.6" height="13"/>`; }
+  s+=`<text class="t-sub" x="34" y="${Ys(16.2)}" text-anchor="middle">4 car parking</text>`;
+  // building
+  s+=`<rect class="s-bldg" x="5" y="${Ys(80)}" width="40" height="65"/>`;
+  s+=`<rect class="r r-court" x="17" y="${Ys(49)}" width="16" height="16"/>`+treeSym(25,Ys(41),3.4);
+  s+=`<rect class="r r-outdoor" x="5" y="${Ys(15)}" width="12" height="5"/><text class="t-sub" x="11" y="${Ys(12)}" text-anchor="middle">portico</text>`;
+  s+=`<text class="t-name" x="25" y="${Ys(25)}" text-anchor="middle">The Courtyard House</text><text class="t-dim" x="25" y="${Ys(27)}" text-anchor="middle">G + 2 + roof garden</text>`;
+  s+=`<text class="t-sub" x="25" y="${Ys(53)}" text-anchor="middle">courtyard, open to sky</text>`;
+  s+=`<text class="t-sub" x="25" y="${Ys(65)}" text-anchor="middle">footprint 40' × 65'</text>`;
+  s+=`<text class="t-sub" transform="translate(2.6,${Ys(48)}) rotate(-90)" text-anchor="middle">north side passage · service entry</text>`;
+  s+=`<text class="t-sub" transform="translate(47.6,${Ys(48)}) rotate(90)" text-anchor="middle">south side passage</text>`;
+  // boundary wall with gates
+  s+=`<path class="s-wall" d="M7 ${Ys(0)} H0 V${Ys(90)} H50 V${Ys(0)} H47 M11 ${Ys(0)} H18"/>`;
+  s+=`<text class="t-dim" x="9" y="${Ys(-1.6)}" text-anchor="middle">gate</text><text class="t-dim" x="32.5" y="${Ys(-1.6)}" text-anchor="middle">car gate</text>`;
+  // setbacks
+  s+=dimV(-2.5,Ys(15),Ys(0),"15' front");
+  s+=dimV(-2.5,Ys(90),Ys(80),"10' rear");
+  s+=dimH(0,5,Ys(83.3),"5'"); s+=dimH(45,50,Ys(83.3),"5'");
+  s+=northArrow(-1.5,Ys(92)+2.6);
+  // sun path
+  s+=`<path class="sun" d="M54 ${Ys(-20)} Q 60 ${Ys(40)} 54 ${Ys(100)}"/><text class="t-dim" x="55.5" y="${Ys(-23)}" text-anchor="middle">sunset</text>`;
+  s+=`</svg>`;
+  return s;
+}
+
+/* ============ FRONT ELEVATION (west) ============ */
+function elevSVG(){
+  const H = 58, Yh = h => H - h;
+  const rect=(x1,h1,x2,h2,c,extra='')=>`<rect class="${c}" x="${x1}" y="${f(Yh(h2))}" width="${f(x2-x1)}" height="${f(h2-h1)}" ${extra}/>`;
+  let s = `<svg viewBox="-14 1 76 61" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Front elevation">`;
+  s+=rect(-14,-3,62,0,'e-ground');
+  // stair room behind & pergola
+  s+=rect(5,44.5,17,52,'e-stone');
+  s+=rect(9,46,13,50.5,'e-glass');
+  [5.4,24.7,43.9].forEach(x=> s+=rect(x,44.5,x+.6,50,'e-wood'));
+  s+=rect(17,49.5,45,50.5,'e-wood');
+  for(let x=18;x<45;x+=2) s+=rect(x,50.5,x+.35,51,'e-wood');
+  // body
+  s+=rect(5,2.5,45,41.5,'e-plaster');
+  s+=rect(4.2,0,45.8,2.5,'e-stone');
+  // ground floor
+  s+=rect(5,2.5,17,15.5,'e-stone');
+  s+=rect(7.5,2.5,12.5,11.5,'e-wood'); s+=`<line x1="10" y1="${Yh(2.5)}" x2="10" y2="${Yh(11.5)}" stroke="var(--wall)" stroke-width=".1"/>`;
+  s+=rect(4.6,12,17.4,12.8,'e-slab');
+  s+=rect(17.6,3,28.4,14.6,'e-glass'); s+=rect(29.6,3,44.4,14.6,'e-glass');
+  for(let x=30;x<44.3;x+=1.6) s+=rect(x,3,x+.35,14.6,'e-wood');
+  for(let x=20.3;x<28;x+=2.7) s+=`<line x1="${x}" y1="${Yh(3)}" x2="${x}" y2="${Yh(14.6)}" stroke="var(--wall)" stroke-width=".08"/>`;
+  // upper floors
+  [15.5,28.5].forEach(y0=>{
+    s+=rect(6,y0+.6,28.4,y0+11.9,'e-glass'); s+=rect(29.6,y0+.6,44.4,y0+11.9,'e-glass');
+    for(let x=8.8;x<28;x+=2.8) s+=`<line x1="${f(x)}" y1="${Yh(y0+.6)}" x2="${f(x)}" y2="${Yh(y0+11.9)}" stroke="var(--wall)" stroke-width=".08"/>`;
+    for(let x=30;x<44.3;x+=1.6) s+=rect(f(x),y0+.6,f(x+.35),y0+11.9,'e-wood');
+    s+=rect(4.6,y0-1,45.4,y0,'e-slab');
+    s+=rect(5,y0,45,y0+3.5,'e-rail');
+    s+=rect(5,y0,45,y0+1.1,'e-stone');
+    for(let x=5.7;x<45;x+=1.3) s+=`<circle class="e-green" cx="${f(x)}" cy="${f(Yh(y0+1.4))}" r=".75"/>`;
+    for(let x=6.3;x<45;x+=3.9) s+=`<path class="e-green" d="M${f(x)} ${f(Yh(y0+1.1))} q .2 1.6 -.5 2.6 q .9 -.8 1 -2.6 z"/>`;
+  });
+  // roof band / frame
+  s+=rect(4.6,41.5,45.4,42.5,'e-slab');
+  s+=rect(5,42.5,45,44.5,'e-plaster');
+  s+=rect(4.2,0,5.8,44.5,'e-stone'); s+=rect(44.2,0,45.8,44.5,'e-stone'); s+=rect(4.2,42.5,45.8,44.5,'e-stone');
+  // boundary wall & gates
+  s+=rect(0,0,7,4,'e-wall'); s+=rect(11,0,18,4,'e-wall'); s+=rect(46,0,50,4,'e-wall');
+  s+=rect(7,0,11,4.4,'e-wood','opacity=".85"'); s+=rect(18,0,46,4,'e-wood','opacity=".8"');
+  for(let x=18.7;x<46;x+=.9) s+=`<line x1="${f(x)}" y1="${Yh(0)}" x2="${f(x)}" y2="${Yh(4)}" stroke="var(--paper)" stroke-width=".12" opacity=".6"/>`;
+  // tree at front lawn
+  s+=`<rect x="1.6" y="${Yh(9)}" width=".6" height="9" fill="#6b4a2f"/>`;
+  [[1.9,11,3.2],[0,9.6,2.2],[3.8,9.4,2.3],[1.9,13.2,2.2]].forEach(([x,h,r])=> s+=`<circle class="e-green" cx="${x}" cy="${Yh(h)}" r="${r}" opacity=".9"/>`);
+  // level marks
+  const lv=[[0,"±0'0\"  road"],[2.5,"+2'6\"  plinth"],[15.5,"+15'6\"  first floor"],[28.5,"+28'6\"  second floor"],[41.5,"+41'6\"  roof"],[52,"+52'0\"  stair room"]];
+  lv.forEach(([h,t])=>{ s+=`<line class="dim" x1="46.5" x2="50" y1="${Yh(h)}" y2="${Yh(h)}"/><path d="M46.5 ${Yh(h)} l.6 -.6 h-1.2 z" fill="var(--muted)"/><text class="t-dim" x="50.4" y="${Yh(h)+.3}">${t}</text>`; });
+  // floor labels
+  [[9,'PARENTS + COMMON'],[22,'HOUSE A'],[35,'HOUSE B'],[46.5,'ROOF GARDEN']].forEach(([h,t])=> s+=`<text class="t-note" x="-3" y="${Yh(h)}" text-anchor="end">${t}</text>`);
+  s+=`<text class="t-dim" x="25" y="${Yh(-2.2)}" text-anchor="middle">WEST (FRONT) ELEVATION · as seen from the Suncity garden</text>`;
+  s+=`</svg>`;
+  return s;
+}
+
+/* ============ SECTION through courtyard (cut at x = 25, looking south) ============ */
+function sectionSVG(){
+  const H=58, Yh=h=>H-h, X=d=>d;
+  const rect=(x1,h1,x2,h2,c,extra='')=>`<rect class="${c}" x="${f(x1)}" y="${f(Yh(h2))}" width="${f(x2-x1)}" height="${f(h2-h1)}" ${extra}/>`;
+  let s=`<svg viewBox="-8 1 106 61" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Section through courtyard">`;
+  s+=rect(-8,-3,98,0,'e-ground');
+  // background mass (core) light
+  s+=rect(33,41.5,49,52,'e-wall','opacity=".5"');
+  // rooms fill per level
+  const levels=[[2.5,['Family Lounge','Courtyard garden','Family Dining','Passage · Kitchen']],[15.5,['Living','','Dining','Powder']],[28.5,['Living','','Dining','Powder']]];
+  levels.forEach(([y0,names],L)=>{
+    s+=rect(15,y0,33,y0+12,'r r-living'); s+=rect(49,y0,63,y0+12,'r r-dining'); s+=rect(63,y0,80,y0+12,'r r-circ');
+    if(L===0) s+=rect(33,y0,49,y0+12,'r r-court','style="stroke:none"');
+    [[24,names[0]],[56,names[2]],[71.5,names[3]]].forEach(([x,t])=> s+=`<text class="t-name" style="font-size:1px" x="${x}" y="${Yh(y0+6)}" text-anchor="middle">${t}</text>`);
+    s+=`<text class="t-dim" style="font-size:.75px" x="24" y="${Yh(y0+4.6)}" text-anchor="middle">12' clear ceiling</text>`;
+    // slabs
+    s+=rect(15,y0-1,33,y0,'e-cut'); s+=rect(49,y0-1,80,y0,'e-cut');
+    if(L>0) s+=rect(11,y0-1,15,y0,'e-cut');
+    // walls: front glass d15, courtyard glass d33 & 49, wall d63, rear wall d80
+    s+=rect(14.8,y0,15.2,y0+12,'e-glass'); s+=rect(32.8,y0,33.2,y0+12,'e-glass'); s+=rect(48.8,y0,49.2,y0+12,'e-glass');
+    s+=rect(62.6,y0,63.4,y0+12,'e-cut'); s+=rect(79.4,y0,80.6,y0+12,'e-cut');
+    s+=rect(79.4,y0+3,80.6,y0+9,'e-glass');
+    if(L>0){ s+=rect(11,y0,11.3,y0+3.5,'e-rail'); s+=rect(11.3,y0,13,y0+1.2,'e-stone'); }
+  });
+  s+=rect(14.8,41.5-1+1,33,42.5,'e-cut'); s+=rect(49,41.5,80.6,42.5,'e-cut');
+  s+=rect(14.6,41.5,15.4,44.5,'e-cut'); s+=rect(79.8,41.5,80.6,44.5,'e-cut');
+  s+=rect(15,1.5,80.6,2.5,'e-stone');
+  // courtyard guard rails on upper levels
+  [15.5,28.5,42.5].forEach(y=>{ s+=rect(33,y,33.3,y+3.5,'e-rail'); s+=rect(48.7,y,49,y+3.5,'e-rail'); });
+  // pergola
+  s+=rect(15.5,42.5,16.1,50,'e-wood'); s+=rect(32,42.5,32.6,50,'e-wood'); s+=rect(15,49.5,33,50.4,'e-wood');
+  s+=rect(51,42.5,78,43,'r r-garden');
+  // tree in courtyard
+  s+=`<rect x="40.7" y="${Yh(28)}" width=".6" height="25.5" fill="#6b4a2f"/>`;
+  [[41,26,4.2],[38.2,22,3],[44,22.5,3.1],[41,30,3]].forEach(([x,h,r])=> s+=`<circle class="e-green" cx="${x}" cy="${Yh(h)}" r="${r}" opacity=".85"/>`);
+  // sun rays
+  [[-6,58,20,18],[30,57,39,3],[34,57,48,20],[36,57,58,8]].forEach(([x1,h1,x2,h2])=> s+=`<line class="sun" x1="${x1}" y1="${Yh(h1)}" x2="${x2}" y2="${Yh(h2)}"/>`);
+  s+=`<text class="t-dim" x="38" y="${Yh(55)}" text-anchor="middle">daylight + hot air out</text>`;
+  s+=`<text class="t-dim" x="-1" y="${Yh(52)}">evening sun, cut by</text><text class="t-dim" x="-1" y="${Yh(50.8)}">balconies + louvres</text>`;
+  // labels
+  s+=`<text class="t-note" x="47.5" y="${Yh(-2.2)}" text-anchor="middle">SECTION A–A THROUGH THE COURTYARD · west (front) on the left, east (rear) on the right</text>`;
+  [[0,'GF'],[15.5,'FF · House A'],[28.5,'SF · House B'],[41.5,'Roof']].forEach(([h,t])=> s+=`<text class="t-dim" x="82" y="${Yh(h+5.5)}">${t}</text>`);
+  s+=`<text class="t-dim" x="5" y="${Yh(4)}" text-anchor="middle">front setback</text><text class="t-dim" x="85" y="${Yh(1.5)}" text-anchor="middle">rear garden</text>`;
+  s+=`</svg>`;
+  return s;
+}
+
+/* ============ SHEETS / TABS ============ */
+const LEG = [['living','Living'],['bedbig','Very large bedroom'],['bed','Bedroom'],['kitchen','Kitchen'],['dining','Dining'],['bath','Bath'],['court','Courtyard / garden'],['core','Stair + lift'],['service','Service']];
+function legend(){ return `<div class="legend">`+LEG.map(([c,t])=>`<span><i style="background:var(--r-${c})"></i>${t}</span>`).join('')+`<span><i style="background:transparent;border-color:var(--glass);border-width:2px 0"></i>Window / glass</span></div>`; }
+function schedule(F){
+  const rows = F.rooms.filter(r=>!r.small && r.t!=='void').map(r=>{
+    const area = (r.dims ? r.dims.match(/\d+/g).reduce((a,b)=>a*b,1) : r.w*r.h);
+    return `<tr><td>${r.n}${r.big?'<span class="big">very large</span>':''}</td><td class="n">${r.dims||`${ft(r.w)} × ${ft(r.h)}`}</td><td class="n">${area}</td></tr>`;
+  }).join('');
+  return `<table><thead><tr><th>Room</th><th>Size</th><th>Sq ft</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+const SHEETS = [
+  {id:'site', label:'Site plan', svg:siteSVG, side:()=>`<h3>Site plan</h3><p class="note">The house sits back 15' from the road so four cars park in front, with a lawn and the main portico on the north corner. One gate and one boundary wall make the plot read as a single home. A rear garden runs across the full width at the back.</p>${legend()}`},
+  {id:'ground', label:'Ground · Parents + common', svg:()=>planSVG(GF), side:()=>`<h3>${GF.title} · ${GF.sub}</h3><p class="note">${GF.note}</p>${schedule(GF)}${legend()}`},
+  {id:'first', label:'1st · House A', svg:()=>planSVG(FF), side:()=>`<h3>${FF.title} · ${FF.sub}</h3><p class="note">${FF.note}</p>${schedule(FF)}${legend()}`},
+  {id:'second', label:'2nd · House B', svg:()=>planSVG(SF), side:()=>`<h3>${SF.title} · ${SF.sub}</h3><p class="note">${SF.note}</p>${schedule(SF)}${legend()}`},
+  {id:'roof', label:'Roof garden', svg:()=>planSVG(TR), side:()=>`<h3>${TR.title} · ${TR.sub}</h3><p class="note">${TR.note}</p>${schedule(TR)}`},
+  {id:'elevation', label:'Front elevation', svg:elevSVG, side:()=>`<h3>West elevation</h3><p class="note">This is the face of the house that looks onto the society garden. A sandstone frame ties all three floors into one composition. Deep balconies with planter hedges shade the glass, and teak louvres screen the bedrooms from the evening sun.</p><table><tbody>
+    <tr><td>Frame, plinth, stair room</td><td>Jodhpur sandstone</td></tr><tr><td>Walls</td><td>White lime plaster</td></tr>
+    <tr><td>Louvres, gates, pergola</td><td>Teak / sal wood</td></tr><tr><td>Glazing</td><td>Double glazed, low-E</td></tr>
+    <tr><td>Railings</td><td>Frameless glass</td></tr><tr><td>Floors inside</td><td>Kota stone, honed</td></tr></tbody></table>`},
+  {id:'section', label:'Section', svg:sectionSVG, side:()=>`<h3>Section through the courtyard</h3><p class="note">The cut shows how the courtyard works. Daylight drops through all three floors into the dining rooms, and warm air rises out through the open top. Each floor has a 12' clear ceiling, 2 ft more than a typical Jaipur house, so rooms feel open and stay cooler.</p>`},
+];
+const tabsEl = document.getElementById('planTabs'), drawEl = document.getElementById('drawing'), sideEl = document.getElementById('side');
+function showSheet(id){
+  const sh = SHEETS.find(s=>s.id===id) || SHEETS[1];
+  drawEl.innerHTML = sh.svg(); sideEl.innerHTML = sh.side();
+  [...tabsEl.children].forEach(b=> b.setAttribute('aria-selected', b.dataset.id===sh.id));
+  try{ localStorage.setItem('ch-sheet', sh.id); }catch(e){}
+}
+SHEETS.forEach(sh=>{ const b=document.createElement('button'); b.className='tab'; b.role='tab'; b.dataset.id=sh.id; b.textContent=sh.label; b.onclick=()=>showSheet(sh.id); tabsEl.appendChild(b); });
+let startSheet='ground'; try{ startSheet = localStorage.getItem('ch-sheet') || 'ground'; }catch(e){}
+showSheet(startSheet);
+
+/* ============ 3D ============ */
+(function(){
+  const host = document.getElementById('viewer'), hud = document.getElementById('hud'), loading = document.getElementById('loading');
+  if(!window.THREE){ loading.textContent = 'The 3D viewer could not load. The 2D drawings above still work.'; return; }
+  const W = (x,d)=>[25-x, d-45];   // flipped so north is on the viewer's left when looking from the road
+  const scene = new THREE.Scene();
+  const renderer = new THREE.WebGLRenderer({antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  host.prepend(renderer.domElement);
+  const camera = new THREE.PerspectiveCamera(40, 1, 1, 2000);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true; controls.maxPolarAngle = 1.52; controls.minDistance = 25; controls.maxDistance = 420;
+
+  function setBg(){ const c = getComputedStyle(document.documentElement).getPropertyValue('--paper').trim(); scene.background = new THREE.Color(c||'#fafbf7'); scene.fog = new THREE.Fog(scene.background, 320, 700); }
+  setBg();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setBg);
+  new MutationObserver(setBg).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+  scene.add(new THREE.HemisphereLight(0xf4f1e8, 0x6d7a5c, .75));
+  const sun = new THREE.DirectionalLight(0xffe8c8, 1.05);
+  sun.position.set(-90, 120, -170); sun.castShadow = true;
+  sun.shadow.mapSize.set(2048,2048); const sc=sun.shadow.camera; sc.left=-130; sc.right=130; sc.top=130; sc.bottom=-130; sc.near=10; sc.far=500; sun.shadow.bias=-.0005;
+  scene.add(sun);
+
+  const M = (color,o={}) => new THREE.MeshStandardMaterial(Object.assign({color, roughness:.85, metalness:0}, o));
+  const mat = {
+    plaster:M(0xf2efe7), stone:M(0xb89f7c,{roughness:.95}), wood:M(0x8a5a35,{roughness:.7}), slab:M(0xdcd7cb),
+    glass:M(0x456877,{roughness:.08,metalness:.35,transparent:true,opacity:.55}), glassDark:M(0x2e4652,{roughness:.1,metalness:.4}),
+    rail:M(0x9fc3d2,{transparent:true,opacity:.28,roughness:.05}), grass:M(0x7da55a), park:M(0x6f9a4e), road:M(0x55595b,{roughness:1}),
+    paver:M(0xcfc9bd), leaf:M(0x4d7f38), leaf2:M(0x6a9a46), trunk:M(0x6b4a2f), neighbor:M(0xc8c8c2,{transparent:true,opacity:.35}),
+    solar:M(0x1d3352,{roughness:.25,metalness:.5}), tank:M(0x2b2b2b), white:M(0xffffff), dust:M(0xcac7bd,{roughness:1}),
+    line:M(0xf1f1f1)
+  };
+  const roomMat = {
+    living:M(0xd9cdb6), bed:M(0xcbd8c6), bedbig:M(0xb9d2bd), kitchen:M(0xe6d3b3), dining:M(0xdccfb4), bath:M(0xc9d8e2),
+    dress:M(0xd6cfe0), core:M(0xc8c6be), circ:M(0xe3ddd0), service:M(0xd6cfc2), court:M(0x86b06a), outdoor:M(0xd8d2c4),
+    puja:M(0xebcf9f), garden:M(0x8ab56e), solar:M(0xc5ccd6), deck:M(0xb08a62)
+  };
+  function box(x,d,w,h,y0,ht,m,shadow=true){
+    const g = new THREE.Mesh(new THREE.BoxGeometry(w,ht,h), m);
+    const [X,Z] = W(x+w/2, d+h/2); g.position.set(X, y0+ht/2, Z);
+    g.castShadow = shadow; g.receiveShadow = true; return g;
+  }
+  function tree(x,d,y0,ht,r,grp){
+    const [X,Z]=W(x,d); const t=new THREE.Mesh(new THREE.CylinderGeometry(r*.12,r*.16,ht,8), mat.trunk); t.position.set(X,y0+ht/2,Z); t.castShadow=true; grp.add(t);
+    [[0,ht*.95,r],[r*.55,ht*.8,r*.75],[-r*.5,ht*.82,r*.7],[0,ht*.75,r*.7]].forEach(([dx,y,rr],i)=>{
+      const s=new THREE.Mesh(new THREE.SphereGeometry(rr,12,10), i%2?mat.leaf2:mat.leaf); s.position.set(X+dx,y0+y,Z+(i===3?r*.5:0)); s.castShadow=true; grp.add(s);
+    });
+  }
+  function label(text, x, d, y){
+    const cv=document.createElement('canvas'); const ctx=cv.getContext('2d'); const fs=44;
+    ctx.font=`600 ${fs}px Inter, system-ui, sans-serif`; const w=Math.ceil(ctx.measureText(text).width)+36;
+    cv.width=w; cv.height=fs+28; ctx.font=`600 ${fs}px Inter, system-ui, sans-serif`;
+    ctx.fillStyle='rgba(250,251,247,.92)'; ctx.fillRect(0,0,cv.width,cv.height); ctx.strokeStyle='#26302a'; ctx.lineWidth=3; ctx.strokeRect(1.5,1.5,cv.width-3,cv.height-3);
+    ctx.fillStyle='#1c2520'; ctx.textBaseline='middle'; ctx.fillText(text,18,cv.height/2+2);
+    const tex=new THREE.CanvasTexture(cv);
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,depthTest:false,transparent:true}));
+    const sc=.055; sp.scale.set(cv.width*sc*.5, cv.height*sc*.5, 1); const [X,Z]=W(x,d); sp.position.set(X,y,Z); sp.renderOrder=10; return sp;
+  }
+
+  /* ---- site ---- */
+  const site = new THREE.Group(); scene.add(site);
+  site.add(box(-200,-260,450,560,-.6,.5,mat.dust,false));
+  site.add(box(-200,-140,450,110,-.4,.4,mat.park,false));
+  site.add(box(-200,-30,450,30,-.35,.35,mat.road,false));
+  for(let x=-196;x<250;x+=14) site.add(box(x,-15.2,7,.4,.0,.02,mat.line,false));
+  site.add(box(0,0,50,90,-.3,.3,mat.paver,false));
+  site.add(box(0,0,17,10,-.2,.25,mat.grass,false)); site.add(box(0,80,50,10,-.2,.25,mat.grass,false));
+  // park path + trees
+  site.add(box(-200,-70,450,6,-.2,.2,mat.paver,false));
+  let seed=7; const rnd=()=> (seed=(seed*16807)%2147483647)/2147483647;
+  for(let i=0;i<46;i++){ const x=-150+rnd()*340, d=-136+rnd()*100; if(d>-74&&d<-62) continue; tree(x,d,0,10+rnd()*12,4+rnd()*4,site); }
+  tree(4,5,0,14,4.2,site); tree(3,86,0,12,3.5,site); tree(47,86,0,11,3.2,site);
+  // boundary wall
+  const bw=[[0,0,7,.75],[11,0,7,.75],[46,0,4,.75],[0,0,.75,90],[49.25,0,.75,90],[0,89.25,50,.75]];
+  bw.forEach(([x,d,w,h])=> site.add(box(x,d,w,h,0,(d===0&&h<1)?4:6,mat.plaster)));
+  site.add(box(7,0,4,.4,0,4.4,mat.wood)); site.add(box(18,0,28,.4,0,4,mat.wood));
+  // cars
+  const carCols=[0x3b4a5a,0xe8e6e1,0x7a2a26,0x9aa3a8];
+  for(let i=0;i<4;i++){ const x=19.2+i*8; site.add(box(x,1.2,5.6,13,0,3,M(carCols[i],{roughness:.4,metalness:.3}))); site.add(box(x+.4,4.5,4.8,6.5,3,1.8,mat.glassDark)); }
+  // neighbours
+  site.add(box(-48,15,46,62,0,34,mat.neighbor)); site.add(box(52,15,46,62,0,30,mat.neighbor));
+
+  /* ---- exterior massing per level ---- */
+  const LV = [2.5, 15.5, 28.5], FH = 13;
+  const ext = [new THREE.Group(), new THREE.Group(), new THREE.Group()];
+  const roof = new THREE.Group();
+  ext.forEach(g=>scene.add(g)); scene.add(roof);
+  const plinth = box(5,15,40,65,0,2.5,mat.stone); site.add(plinth);
+  const frontMats = [mat.plaster,mat.plaster,mat.plaster,mat.plaster,mat.plaster,mat.glass];
+  const FLOORS3 = [GF,FF,SF];
+  LV.forEach((y0,L)=>{
+    const g = ext[L], wh = FH-1;
+    const fb = box(5,15.6,40,17.4,y0,wh,frontMats); g.add(fb);
+    g.add(box(5,33,L===0?12:16,16,y0,wh,mat.plaster));
+    g.add(box(33,33,12,16,y0,wh,mat.plaster));
+    g.add(box(5,49,40,31,y0,wh,mat.plaster));
+    // slab above
+    g.add(box(4.6,15,40.8,18,y0+wh,1,mat.slab)); g.add(box(4.6,33,16.4,16,y0+wh,1,mat.slab)); g.add(box(33,33,12.4,16,y0+wh,1,mat.slab)); g.add(box(4.6,49,40.8,31.4,y0+wh,1,mat.slab));
+    // front fins on the bedroom side
+    for(let x=29.8;x<44.5;x+=1.6) g.add(box(x,14.4,.35,1,y0+.3,wh-.3,mat.wood));
+    if(L===0){ g.add(box(5,15.4,12,.3,y0,wh,mat.stone)); g.add(box(7.5,15.1,5,.3,y0,9,mat.wood)); g.add(box(5,10,12,5,12,.8,mat.slab)); }
+    // side / rear windows from the plan
+    FLOORS3[L].windows.forEach(w=>{
+      if(w.g){ if(w.o==='h') g.add(box(w.x,w.d-.15,w.w,.3,y0,wh,mat.glass,false)); else g.add(box(w.x-.15,w.d,.3,w.w,y0,wh,mat.glass,false)); return; }
+      if(w.o==='v' && (w.x===5||w.x===45)) g.add(box(w.x===5?4.85:44.85,w.d,.3,w.w,y0+2.5,7.5,mat.glassDark,false));
+      if(w.o==='h' && w.d===80) g.add(box(w.x,79.85,w.w,.3,y0+2.5,7.5,mat.glassDark,false));
+    });
+    if(L>0){
+      FLOORS3[L].doors.filter(dr=>dr.o==='h'&&dr.d===80).forEach(dr=> g.add(box(dr.x,79.85,dr.w,.3,y0,9,mat.glassDark,false)));
+      g.add(box(4.6,11,40.8,4,y0-1,1,mat.slab));                      // front balcony
+      g.add(box(5,11,40,.25,y0,3.5,mat.rail,false));
+      g.add(box(5,11.25,40,1.3,y0,1.1,mat.stone)); g.add(box(5.2,11.35,39.6,1.1,y0+1.1,.9,mat.leaf));
+      g.add(box(5,80,18,3,y0-1,1,mat.slab)); g.add(box(29,80,16,3,y0-1,1,mat.slab));
+      g.add(box(5,82.8,18,.2,y0,3.5,mat.rail,false)); g.add(box(29,82.8,16,.2,y0,3.5,mat.rail,false));
+      // courtyard guard rail at gallery edge
+    } else {
+      FLOORS3[0].doors.filter(dr=>dr.o==='h'&&dr.d===80).forEach(dr=> g.add(box(dr.x,79.85,dr.w,.3,y0,8,mat.glassDark,false)));
+    }
+  });
+  // courtyard: grass + tree
+  site.add(box(17,33,16,16,2.5,.15,mat.grass,false));
+  tree(25,41,2.6,27,5.2,site);
+  // roof
+  const RY = 41.5;
+  [[5,15,40,.6],[5,79.4,40,.6],[5,15,.6,65],[44.4,15,.6,65]].forEach(([x,d,w,h])=> roof.add(box(x,d,w,h,RY,3,mat.plaster)));
+  [[21,33,12,.3],[21,48.7,12,.3],[20.7,33,.3,16],[33,33,.3,16]].forEach(([x,d,w,h])=> roof.add(box(x,d,w,h,RY,3.5,mat.rail,false)));
+  roof.add(box(4.2,13,1.6,4,0,44.5,mat.stone)); roof.add(box(44.2,13,1.6,4,0,44.5,mat.stone)); roof.add(box(4.2,13,41.6,4,RY,3,mat.stone));
+  roof.add(box(5,33,12,16,RY,9.5,mat.stone));
+  [[5.5,15.5],[24.7,15.5],[43.9,15.5],[5.5,31.9],[24.7,31.9],[43.9,31.9]].forEach(([x,d])=> roof.add(box(x,d,.6,.6,RY,8.5,mat.wood)));
+  roof.add(box(5,15.4,40,.8,RY+8,.8,mat.wood)); roof.add(box(5,31.8,40,.8,RY+8,.8,mat.wood));
+  for(let x=5.5;x<45;x+=2) roof.add(box(x,15,.35,18,RY+8.8,.5,mat.wood));
+  roof.add(box(6,17,38,14,RY,.2,mat.wood,false));
+  roof.add(box(5.6,49.6,38.8,13,RY,.6,mat.grass,false)); roof.add(box(33.4,41.4,11,7,RY,1.2,mat.leaf));
+  [[36.5,37],[41.5,37]].forEach(([x,d])=>{ const c=new THREE.Mesh(new THREE.CylinderGeometry(2,2,4.5,20),mat.tank); const [X,Z]=W(x,d); c.position.set(X,RY+2.25,Z); c.castShadow=true; roof.add(c); });
+  for(let x=7.5;x<44;x+=4.2){ const p=box(x,64.5,3.4,14.5,RY+1.4,.2,mat.solar); p.rotation.z=.42; roof.add(p); }
+  tree(10,55,RY+.5,5,1.8,roof); tree(38,58,RY+.5,4.5,1.6,roof);
+
+  /* ---- interior cutaway per level ---- */
+  const NOWALL = new Set(['outdoor','court','void','deck','garden','solar']);
+  const cut = [];
+  function subtract(iv, cuts){
+    let out=[iv];
+    cuts.forEach(([a,b])=>{ out = out.flatMap(([s,e])=> (b<=s||a>=e) ? [[s,e]] : [[s,Math.max(s,a)],[Math.min(e,b),e]].filter(([p,q])=>q-p>.05)); });
+    return out;
+  }
+  function buildCut(L){
+    const F = FLOORS3[L], y0 = LV[L], g = new THREE.Group(), WH = 9;
+    F.rooms.forEach(r=>{
+      if(r.t==='void') return;
+      const m = roomMat[r.t] || roomMat.circ;
+      g.add(box(r.x,r.d,r.w,r.h,y0-(r.t==='outdoor'?1:.02),r.t==='outdoor'?1:.3,m,false));
+    });
+    // gather wall lines
+    const lines = {};
+    F.rooms.forEach(r=>{
+      if(NOWALL.has(r.t)) return;
+      const add=(o,c,a,b)=>{ const k=o+':'+c.toFixed(2); (lines[k]=lines[k]||{o,c,iv:[]}).iv.push([a,b]); };
+      add('h',r.d,r.x,r.x+r.w); add('h',r.d+r.h,r.x,r.x+r.w); add('v',r.x,r.d,r.d+r.h); add('v',r.x+r.w,r.d,r.d+r.h);
+    });
+    Object.values(lines).forEach(ln=>{
+      ln.iv.sort((a,b)=>a[0]-b[0]); const merged=[];
+      ln.iv.forEach(([a,b])=>{ const l=merged[merged.length-1]; if(l && a<=l[1]+.01) l[1]=Math.max(l[1],b); else merged.push([a,b]); });
+      const doorCuts = F.doors.filter(d=>d.o===ln.o && Math.abs(d.o==='h'?d.d-ln.c:d.x-ln.c)<.01).map(d=>[d.o==='h'?d.x:d.d, (d.o==='h'?d.x:d.d)+d.w]);
+      const winCuts = F.windows.filter(w=>w.o===ln.o && Math.abs(w.o==='h'?w.d-ln.c:w.x-ln.c)<.01).map(w=>[w.o==='h'?w.x:w.d,(w.o==='h'?w.x:w.d)+w.w,w.g]);
+      const ext = (ln.o==='h' && (ln.c===15||ln.c===80)) || (ln.o==='v' && (ln.c===5||ln.c===45));
+      const t = ext ? .75 : .45;
+      const segs = merged.flatMap(iv=> subtract(iv, [...doorCuts, ...winCuts.map(w=>[w[0],w[1]])]));
+      const mk=(a,b,yb,ht,m)=> ln.o==='h' ? box(a,ln.c-t/2,b-a,t,yb,ht,m) : box(ln.c-t/2,a,t,b-a,yb,ht,m);
+      segs.forEach(([a,b])=> g.add(mk(a,b,y0,WH,mat.plaster)));
+      winCuts.forEach(([a,b,gl])=>{ if(!gl) g.add(mk(a,b,y0,2.5,mat.plaster)); g.add(mk(a,b,gl?y0:y0+2.5,gl?WH:WH-2.5,mat.glass)); });
+      doorCuts.forEach(([a,b])=>{ if(ext && ln.o==='h' && ln.c===15) g.add(mk(a,b,y0,WH,mat.glass)); });
+    });
+    // front glass for living / bedroom on GF (front windows) is covered by windows; balcony rails
+    if(L>0){ g.add(box(5,11,40,.25,y0,3.5,mat.rail,false)); g.add(box(5,11.25,40,1.3,y0,1.1,mat.stone)); g.add(box(5.2,11.35,39.6,1.1,y0+1.1,.9,mat.leaf)); }
+    // furniture
+    const wood = mat.wood, soft = M(0xefe9dc), dark = M(0x5a4a3c);
+    F.rooms.forEach(r=>{
+      const cx = r.lx ?? r.x+r.w/2, cd = r.ld ?? r.d+r.h/2;
+      if(r.t==='bed'||r.t==='bedbig'){ const bw=r.t==='bedbig'?6.5:5.5; g.add(box(cx-bw/2,cd-3,bw,7,y0,1.8,soft)); g.add(box(cx-bw/2,cd+3.6,bw,.5,y0,3.4,wood)); g.add(box(cx-bw/2-1.8,cd+2.4,1.5,1.5,y0,1.8,wood)); g.add(box(cx+bw/2+.3,cd+2.4,1.5,1.5,y0,1.8,wood)); if(r.t==='bedbig'){ g.add(box(cx-3,cd-6.4,2.6,2.6,y0,2.4,M(0xb6a07c))); g.add(box(cx+.6,cd-6.4,2.6,2.6,y0,2.4,M(0xb6a07c))); } }
+      if(r.t==='living'){ g.add(box(r.x+4,r.d+9,12,3,y0,2.6,M(0xcfc3ae))); g.add(box(r.x+4,r.d+4,3,5,y0,2.6,M(0xcfc3ae))); g.add(box(r.x+9,r.d+5,5,3,y0,1.3,wood)); g.add(box(r.x+18,r.d+13,5,1.2,y0,2.8,dark)); }
+      if(r.t==='dining'){ g.add(box(cx-2,cd-4,4,8,y0,2.5,wood)); for(let i=0;i<3;i++){ g.add(box(cx-3.6,cd-3+i*2.4,1.4,1.4,y0,1.6,dark)); g.add(box(cx+2.2,cd-3+i*2.4,1.4,1.4,y0,1.6,dark)); } }
+      if(r.t==='kitchen'){ g.add(box(r.x+.6,r.d+r.h-2.6,r.w-1.2,2,y0,3,soft)); g.add(box(r.x+r.w-2.6,r.d+3,2,r.h-5.6,y0,3,soft)); g.add(box(r.x+4,r.d+6,6,3,y0,3,wood)); }
+      if(r.t==='bath' && !r.small){ g.add(box(r.x+r.w-2,r.d+.6,1.4,2,y0,1.4,mat.white)); g.add(box(r.x+.6,r.d+.6,2.2,1.4,y0,2.8,mat.white)); }
+      if(r.t==='puja'){ g.add(box(cx-2,r.d+r.h-2,4,1.4,y0,3,M(0xd6a85c))); }
+      if(r.t==='service' && r.n==='Servant Room'){ g.add(box(r.x+.8,r.d+.8,3.5,6.5,y0,1.6,soft)); }
+    });
+    // labels
+    F.rooms.forEach(r=>{ if(r.small || r.t==='outdoor') return; const cx=r.lx??r.x+r.w/2, cd=r.ld??r.d+r.h/2; g.add(label(r.n,cx,cd,y0+11)); });
+    scene.add(g); return g;
+  }
+
+  const VIEWS = [
+    {id:'street', label:'Street view', hud:'From the Suncity garden across the road. The house reads as one home: one frame, one gate, one balcony line.', mode:'ext', pos:[34,16,-128], tgt:[0,20,-10]},
+    {id:'aerial', label:'Bird’s eye', hud:'Aerial view. The open courtyard sits in the centre, with the roof garden, pergola and solar panels above.', mode:'ext', pos:[-120,125,-95], tgt:[0,12,5]},
+    {id:'rear', label:'Rear garden', hud:'From the rear garden: kitchens and the large Bedroom 2 open onto balconies, and the parents get a quiet garden.', mode:'ext', pos:[70,40,125], tgt:[0,18,10]},
+    {id:'cut0', label:'Inside · Ground', hud:'Ground floor cut open: parents’ suite (front right), family lounge, courtyard garden, dining, common kitchen, servant room.', mode:0, pos:[-55,80,-68], tgt:[0,2,8]},
+    {id:'cut1', label:'Inside · House A', hud:'First floor, House A: living and master bedroom face the garden, dining wraps the courtyard, Bedroom 2 and the kitchen are at the rear.', mode:1, pos:[-55,92,-68], tgt:[0,15,8]},
+    {id:'cut2', label:'Inside · House B', hud:'Second floor, House B: the same plan as House A, with its own front door from the shared lobby.', mode:2, pos:[-55,105,-68], tgt:[0,28,8]},
+  ];
+  const btnHost = document.getElementById('viewBtns');
+  function apply(v){
+    if(v.mode==='ext'){ ext.forEach(g=>g.visible=true); roof.visible=true; cut.forEach(g=>g&&(g.visible=false)); }
+    else { const L=v.mode; if(!cut[L]) cut[L]=buildCut(L); ext.forEach((g,i)=> g.visible = i<L); roof.visible=false; cut.forEach((g,i)=>g&&(g.visible=i===L)); }
+    camera.position.set(...v.pos); controls.target.set(...v.tgt); controls.update();
+    hud.textContent = v.hud;
+    [...btnHost.children].forEach(b=>b.setAttribute('aria-pressed', b.dataset.id===v.id));
+  }
+  VIEWS.forEach(v=>{ const b=document.createElement('button'); b.className='btn'; b.dataset.id=v.id; b.textContent=v.label; b.onclick=()=>apply(v); btnHost.appendChild(b); });
+
+  function resize(){ const w=host.clientWidth, h=host.clientHeight; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); }
+  new ResizeObserver(resize).observe(host); resize();
+  apply(VIEWS[0]);
+  loading.remove();
+  (function loop(){ controls.update(); renderer.render(scene,camera); requestAnimationFrame(loop); })();
+})();
+</script>
